@@ -1,5 +1,5 @@
 // Enemies our player must avoid
-var Enemy = function(x, y) {
+var Enemy = function(x, y, speed) {
   // Variables applied to each of our instances go here,
   // we've provided one for you to get started
 
@@ -8,8 +8,10 @@ var Enemy = function(x, y) {
   this.sprite = 'images/enemy-bug.png';
 
   // this.x and this.y provided in render function
+  // speed provided in random function
   this.x = x;
   this.y = y;
+  this.speed = speed;
 
   // We'd need a speed variable to determine the speed the enemies cross the
   // canvas at. This variable would have a random value.
@@ -21,12 +23,28 @@ Enemy.prototype.update = function(dt) {
   // You should multiply any movement by the dt parameter
   // which will ensure the game runs at the same speed for
   // all computers.
-  this.x += Math.floor((Math.random() * 500) + 1) * dt;
+  //this.x += Math.floor((Math.random() * 500) + 1) * dt;
+
+  //if (this.x > 540) {
+    //this.x = Math.floor((Math.random() * -500) + -100);
+    //this.x += Math.floor((Math.random() * 1000) + 1) * dt;
+  //};
+  // These lines of code set the Enemy objects in motion, but the way they move
+  // is incorrect. We need some sort of speed variable, declared outside this
+  // function, so it doesn't update with every frame.
+
+  this.x = this.x + this.speed * dt;
 
   if (this.x > 540) {
-    this.x = Math.floor((Math.random() * -500) + -100);
-    this.x += Math.floor((Math.random() * 1000) + 1) * dt;
-  };
+    this.x = -105;
+    this.random();
+  }
+
+};
+// Randomise the speed of enemies
+Enemy.prototype.random = function() {
+  var randomSpd = Math.floor(Math.random() * 5 + 1);
+  this.speed = 100 * randomSpd;
 };
 
 // Draw the enemy on the screen, required method for game
@@ -62,15 +80,21 @@ Player.prototype.handleInput = function() {
 // Now instantiate your objects.
 // X position would be a negative value, to prevent pop-in of enemy object.
 // Y position closely matches the layout of the path.
-var enemyTop = new Enemy(-105, 61);
-var enemyMid = new Enemy(-105, 144);
-var enemyBot = new Enemy(-105, 228);
+// Speed is initially randomised, then again later in update function.
+//var enemyTop = new Enemy(-105, 61, 100);
+//var enemyMid = new Enemy(-105, 144, 100);
+//var enemyBot = new Enemy(-105, 228, 100);
 // Place all enemy objects in an array called allEnemies
 var allEnemies = [];
 // var allEnemies = [new Enemy(5, 61), new Enemy(5, 144), new Enemy(5, 228)];
-allEnemies.push(enemyTop);
-allEnemies.push(enemyMid);
-allEnemies.push(enemyBot);
+for (var i = 0; i < 3; i++) {
+  var startSpeed = Math.floor(Math.random() * 6 + 1) * 80;
+  allEnemies.push(new Enemy(-105, 60 + 85 * i, startSpeed));
+}
+
+//allEnemies.push(enemyTop);
+//allEnemies.push(enemyMid);
+//allEnemies.push(enemyBot);
 // Place the player object in a variable called player
 var player = new Player(202.5, 380);
 
