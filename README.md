@@ -8,9 +8,4 @@ ___
 2. Congratulations! You have successfully launched the game!
 3. To play, use the Arrow keys to move your character.
 4. The objective is to reach the water, but watch out for those pesky bugs!
-<br>
-<br>
-<br>
-<br>
-<br>
-<p style="text-align: center">Marc Smith</p>
+
