@@ -1,56 +1,40 @@
-// Enemies our player must avoid
+// Enemies our player must avoid.
 var Enemy = function(x, y, speed) {
-  // Variables applied to each of our instances go here,
-  // we've provided one for you to get started
 
-  // The image/sprite for our enemies, this uses
-  // a helper we've provided to easily load images
   this.sprite = 'images/enemy-bug.png';
-
-  // this.x and this.y provided in render function
-  // speed provided in random function
+  // this.x and this.y provided in render function.
+  // speed provided in random function.
   this.x = x;
   this.y = y;
   this.speed = speed;
-
-  // We'd need a speed variable to determine the speed the enemies cross the
-  // canvas at. This variable would have a random value.
 };
 
-// Update the enemy's position, required method for game
-// Parameter: dt, a time delta between ticks
 Enemy.prototype.update = function(dt) {
-  // You should multiply any movement by the dt parameter
-  // which will ensure the game runs at the same speed for
-  // all computers.
-  //this.x += Math.floor((Math.random() * 500) + 1) * dt;
 
-  //if (this.x > 540) {
-    //this.x = Math.floor((Math.random() * -500) + -100);
-    //this.x += Math.floor((Math.random() * 1000) + 1) * dt;
-  //};
-  // These lines of code set the Enemy objects in motion, but the way they move
-  // is incorrect. We need some sort of speed variable, declared outside this
-  // function, so it doesn't update with every frame.
+  // Match speed for any devices.
+  this.x += this.speed * dt;
 
-  this.x = this.x + this.speed * dt;
-
+  // When enemy object reaches the end, its position is reset and it is given
+  // a new random speed.
   if (this.x > 540) {
     this.x = -105;
     this.random();
   };
 
+  // Give our enemy objects hitboxes.
   var enemyHitLeft = this.x - 60;
   var enemyHitRight = this.x + 60;
   var enemyHitTop = this.y - 60;
   var enemyHitBottom = this.y + 60;
 
+  // Check if our player object collides with an enemy object, reset if true.
   if (player.x > enemyHitLeft && player.x < enemyHitRight
     && player.y > enemyHitTop && player.y < enemyHitBottom) {
     player.reset();
   };
 
 };
+
 // Randomise the speed of enemies
 Enemy.prototype.random = function() {
   var randomSpd = Math.floor(Math.random() * 5 + 1);
@@ -62,9 +46,6 @@ Enemy.prototype.render = function() {
   ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
-// Now write your own player class
-// This class requires an update(), render() and
-// a handleInput() method.
 // Create Player as exact copy of Enemy class
 var Player = function(x, y) {
   // Make sure the image for the sprite you want to use is loaded in engine.
@@ -82,9 +63,6 @@ Player.prototype.render = function() {
 };
 
 Player.prototype.handleInput = function(direction) {
-  // Some sort of reference to allowedKeys
-  // Are we supposed to use if/else loops here when keys are pressed?
-  // if 'left' is pressed, move Player(101,0); TODO
 
   if (direction === 'left' && this.x !== border.left) {
     this.x -= 101;
@@ -108,7 +86,7 @@ Player.prototype.reset = function() {
   this.y = 380;
 };
 
-// Create borders that our Player object will never leave.
+// Create borders to restrict our Player object.
 var border = {
   top: 40,
   right: 404.5,
@@ -116,31 +94,19 @@ var border = {
   left: 0.5
 };
 
-// Now instantiate your objects.
 // X position would be a negative value, to prevent pop-in of enemy object.
 // Y position closely matches the layout of the path.
 // Speed is initially randomised, then again later in update function.
-//var enemyTop = new Enemy(-105, 61, 100);
-//var enemyMid = new Enemy(-105, 144, 100);
-//var enemyBot = new Enemy(-105, 228, 100);
-// Place all enemy objects in an array called allEnemies
 var allEnemies = [];
-// var allEnemies = [new Enemy(5, 61), new Enemy(5, 144), new Enemy(5, 228)];
+
 for (var i = 0; i < 3; i++) {
   var startSpeed = Math.floor(Math.random() * 6 + 1) * 80;
   allEnemies.push(new Enemy(-105, 60 + 85 * i, startSpeed));
 }
 
-//allEnemies.push(enemyTop);
-//allEnemies.push(enemyMid);
-//allEnemies.push(enemyBot);
 // Place the player object in a variable called player
 var player = new Player(202.5, 380);
-var count = 0;
 
-
-// This listens for key presses and sends the keys to your
-// Player.handleInput() method. You don't need to modify this.
 document.addEventListener('keyup', function(e) {
   var allowedKeys = {
     37: 'left',
