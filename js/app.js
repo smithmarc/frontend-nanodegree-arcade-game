@@ -64,17 +64,53 @@ var Player = function(x, y) {
 };
 
 Player.prototype.update = function(dt){
-  // Do we need any code here?
+  //if (this.collide()) {
+    //this.reset();
+  //};
 };
 
 Player.prototype.render = function() {
   ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
-Player.prototype.handleInput = function() {
+Player.prototype.handleInput = function(direction) {
   // Some sort of reference to allowedKeys
   // Are we supposed to use if/else loops here when keys are pressed?
-  // if 'left' is pressed, move Player(100,0); TODO
+  // if 'left' is pressed, move Player(101,0); TODO
+
+  if (direction === 'left' && this.x !== border.left) {
+    this.x -= 101;
+  };
+  if (direction === 'right' && this.x !== border.right) {
+    this.x += 101;
+  };
+  if (direction === 'up' && this.y !== border.top) {
+    this.y -= 85;
+  } else if (direction === 'up' && this.y === 40) {
+    this.reset();
+    count += 1;
+    console.log("You scored a point! You have 1 point!");
+    if (count > 1) {
+      console.log("You scored a point! You have " + count + " points!");
+    };
+  };
+  if (direction === 'down' && this.y !== border.bottom) {
+    this.y += 85;
+  };
+};
+
+// For when a collision occurs, reset Player object.
+Player.prototype.reset = function() {
+  this.x = 202.5;
+  this.y = 380;
+};
+
+// Create borders that our Player object will never leave.
+var border = {
+  top: 40,
+  right: 404.5,
+  bottom: 380,
+  left: 0.5
 };
 
 // Now instantiate your objects.
@@ -97,6 +133,7 @@ for (var i = 0; i < 3; i++) {
 //allEnemies.push(enemyBot);
 // Place the player object in a variable called player
 var player = new Player(202.5, 380);
+var count = 0;
 
 
 // This listens for key presses and sends the keys to your
