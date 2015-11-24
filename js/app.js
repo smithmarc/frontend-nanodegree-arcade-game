@@ -38,7 +38,17 @@ Enemy.prototype.update = function(dt) {
   if (this.x > 540) {
     this.x = -105;
     this.random();
-  }
+  };
+
+  var enemyHitLeft = this.x - 60;
+  var enemyHitRight = this.x + 60;
+  var enemyHitTop = this.y - 60;
+  var enemyHitBottom = this.y + 60;
+
+  if (player.x > enemyHitLeft && player.x < enemyHitRight
+    && player.y > enemyHitTop && player.y < enemyHitBottom) {
+    player.reset();
+  };
 
 };
 // Randomise the speed of enemies
@@ -64,9 +74,7 @@ var Player = function(x, y) {
 };
 
 Player.prototype.update = function(dt){
-  //if (this.collide()) {
-    //this.reset();
-  //};
+  // Do we need any code here?
 };
 
 Player.prototype.render = function() {
@@ -88,11 +96,6 @@ Player.prototype.handleInput = function(direction) {
     this.y -= 85;
   } else if (direction === 'up' && this.y === 40) {
     this.reset();
-    count += 1;
-    console.log("You scored a point! You have 1 point!");
-    if (count > 1) {
-      console.log("You scored a point! You have " + count + " points!");
-    };
   };
   if (direction === 'down' && this.y !== border.bottom) {
     this.y += 85;
