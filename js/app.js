@@ -7,9 +7,12 @@ var Enemy = function(x, y) {
   // a helper we've provided to easily load images
   this.sprite = 'images/enemy-bug.png';
 
-  /* this.x and this.y provided in render function */
-  this.x = 'x';
-  this.y = 'y';
+  // this.x and this.y provided in render function
+  this.x = x;
+  this.y = y;
+
+  // We'd need a speed variable to determine the speed the enemies cross the
+  // canvas at. This variable would have a random value.
 };
 
 // Update the enemy's position, required method for game
@@ -28,15 +31,16 @@ Enemy.prototype.render = function() {
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
-/* Create Player as exact copy of Enemy class */
+// Create Player as exact copy of Enemy class
 var Player = function(x, y) {
+  // Make sure the image for the sprite you want to use is loaded in engine.
   this.sprite = 'images/char-cat-girl.png';
-  this.x = 'x';
-  this.y = 'y';
+  this.x = x;
+  this.y = y;
 };
 
 Player.prototype.update = function(dt){
-
+  // Do we need any code here?
 };
 
 Player.prototype.render = function() {
@@ -48,10 +52,18 @@ Player.prototype.handleInput = function() {
 };
 
 // Now instantiate your objects.
+// X position would be a negative value, to prevent pop-in of enemy object.
+// Y position closely matches the layout of the path.
+var enemyTop = new Enemy(5, 61);
+var enemyMid = new Enemy(5, 144);
+var enemyBot = new Enemy(5, 228);
 // Place all enemy objects in an array called allEnemies
-// Place the player object in a variable called player
 var allEnemies = [];
-var player = new Player();
+allEnemies.push(enemyTop);
+allEnemies.push(enemyMid);
+allEnemies.push(enemyBot);
+// Place the player object in a variable called player
+var player = new Player(202.5, 380);
 
 
 // This listens for key presses and sends the keys to your
