@@ -1,6 +1,16 @@
-frontend-nanodegree-arcade-game
-===============================
+### **Classic Arcade Game Clone**
 
-Students should use this rubric: https://www.udacity.com/course/viewer#!/c-ud015/l-3072058665/m-3072588797
+___
 
-for self-checking their submission.
+##### How to Play:
+
+1. Navigate to the folder where the game is located and open 'index.html'.
+2. Congratulations! You have successfully launched the game!
+3. To play, use the Arrow keys to move your character.
+4. The objective is to reach the water, but watch out for those pesky bugs!
+<br>
+<br>
+<br>
+<br>
+<br>
+<p style="text-align: center">Marc Smith</p>
