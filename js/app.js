@@ -19,7 +19,7 @@ Enemy.prototype.update = function(dt) {
   if (this.x > 540) {
     this.x = -105;
     this.random();
-  };
+  }
 
   // Give our enemy objects hitboxes.
   var enemyHitLeft = this.x - 60;
@@ -28,10 +28,9 @@ Enemy.prototype.update = function(dt) {
   var enemyHitBottom = this.y + 60;
 
   // Check if our player object collides with an enemy object, reset if true.
-  if (player.x > enemyHitLeft && player.x < enemyHitRight
-    && player.y > enemyHitTop && player.y < enemyHitBottom) {
+  if (player.x > enemyHitLeft && player.x < enemyHitRight && player.y > enemyHitTop && player.y < enemyHitBottom) {
     player.reset();
-  };
+  }
 
 };
 
@@ -66,18 +65,19 @@ Player.prototype.handleInput = function(direction) {
 
   if (direction === 'left' && this.x !== border.left) {
     this.x -= 101;
-  };
+  }
   if (direction === 'right' && this.x !== border.right) {
     this.x += 101;
-  };
+  }
   if (direction === 'up' && this.y !== border.top) {
     this.y -= 85;
   } else if (direction === 'up' && this.y === 40) {
     this.reset();
-  };
+    //Here we could implement a score.
+  }
   if (direction === 'down' && this.y !== border.bottom) {
     this.y += 85;
-  };
+  }
 };
 
 // For when a collision occurs, reset Player object.
